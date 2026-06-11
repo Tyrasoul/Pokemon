@@ -20,12 +20,12 @@ int main() {
     cin >> PokemonHP;
     cout << endl << "Enter BallType : ";
     cin >> BallType;
-    cout << endl << "Enter Pokemon's catagory : ";
+    cout << endl << "Enter Pokemon's category : ";
     cin >> PokemonCatagory;
 
     float chance = catch_calculator(PokemonHP, BallType, PokemonCatagory);
 
-    cout << endl << "You have a " << chance << " chance of catching the pokemon";
+    cout << endl << "You have a " << chance << " % chance of catching the pokemon";
     
 
 return 0; };
