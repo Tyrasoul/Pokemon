@@ -31,7 +31,7 @@ int main() {
     cout << endl << "Enter Pokemon's type : ";
     cin >> Type;
 
-    int WeatherModifier = weather_modifier(Weather, Type);
+    float WeatherModifier = weather_modifier(Weather, Type);
 
     float BaseChance = catch_calculator(PokemonHP, BallType, PokemonCategory);
     float Chance = modifiers(WeatherModifier, BaseChance);
