@@ -42,24 +42,21 @@ int main() {
 return 0; };
 
 float catch_calculator(float PokemonHP , int BallType, int PokemonCategory) {
-    // PokemonHP is in percentage, BallType is 0-9, PokemonCatagory is 0-9
+
     float chance = (100.0f - PokemonHP) * numTOpercentage(BallType, BallCount) * numTOpercentage(PokemonCategory, CategoryCount) / 1000000;
     return chance;
 };
 
-float modifiers(float Weather, float BaseChance){
-    return BaseChance*Weather;
-}
+float modifiers(float WeatherModifier, float BaseChance){
 
-float numTOpercentage(int number, int max) {
-    float p = number*100.0f / max;
-    return p;
-};
+    return BaseChance*WeatherModifier;
+}
 
 float weather_modifier(int WeatherType, int PokemonType) {
     // i.e. Evasion
     // From this logic Weather and pokemon type could be matched for example as (0,sandstorm,ground), (1, rain, water)
-    //Will update to taking a struct or an arr if the need be  - will have to change the input details in main/ fxn call
+    // Will update to taking a struct or an arr if the need be  - will have to change the input details in main/ fxn call
+    
     if (WeatherType == -1) {
         return 1;
     };
@@ -67,4 +64,9 @@ float weather_modifier(int WeatherType, int PokemonType) {
         return 1.5;
     };
     return 1;
+};
+
+float numTOpercentage(int number, int max) {
+    float p = number*100.0f / max;
+    return p;
 };
