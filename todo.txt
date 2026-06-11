@@ -1,0 +1,3 @@
+1. Clean Up teh formula by seperating ball modifiers, normal = 1, great = 1.5, ultra = 2, master = lol
+2. Make a struct for pokemon object and store data in it, Make a second struct for envirnoment object and store weather and time in it
+3. Find a way to get input in one or two lines (if sepearting pokemon struct and envirnoment struct), if possible.
