@@ -4,7 +4,7 @@ const int PokeBallCount = 10;
 const int CategoryCount = 10;
 
 float numTOpercentage(int , int);
-float catch_calculator(float, int, int);
+float catch_calculator(float, int);
 float modifiers(float, float, float);
 float weather_modifier(int, int);
 float pokeball_modifiers(int, int, int);
@@ -31,14 +31,14 @@ int main() {
     cout << endl << "Enter Weather Condition (-1 for no weather) : ";
     cin >> WeatherType;
     cout << endl << "Enter Pokemon's type : ";
-    cin >> PokemonCategory;
+    cin >> PokemonType;
     cout << endl << "Enter Time : ";
     cin >> Time;
 
     float WeatherModifier = weather_modifier(WeatherType, PokemonType);
     float PokeballModifier = pokeball_modifiers(BallType, Time, PokemonType);
 
-    float BaseChance = catch_calculator(PokemonHP, BallType, PokemonCategory);
+    float BaseChance = catch_calculator(PokemonHP, PokemonCategory);
     float Chance = modifiers(WeatherModifier, PokeballModifier, BaseChance);
 
     if (PokeballModifier == -1){
@@ -50,7 +50,7 @@ int main() {
 
 return 0; }
 
-float catch_calculator(float PokemonHP , int BallType, int PokemonCategory) {
+float catch_calculator(float PokemonHP , int PokemonCategory) {
 
     float chance = (100.0f - PokemonHP)* numTOpercentage(PokemonCategory, CategoryCount) / 10000;
     return chance;
