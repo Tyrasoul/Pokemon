@@ -1,6 +1,5 @@
 #include <iostream>
 
-const int PokeBallCount = 10;
 const int CategoryCount = 10;
 
 float numTOpercentage(int , int);
@@ -8,6 +7,16 @@ float catch_calculator(float, int);
 float modifiers(float, float, float);
 float weather_modifier(int, int);
 float pokeball_modifiers(int, int, int);
+void handle_input();
+
+
+enum PokemonTypes  {GROUND, WATER, FIRE, ICE, BUG} PokemonType;
+enum Weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR} WeatherType;
+enum Pokeballs {NORMAL, GREAT, ULTRA, DUSK, NET, MASTER} BallType;
+enum TimeofDay {MORNING, NOON, AFTERNOON, EVENING, NIGHT} Time;
+
+float PokemonHP;
+int PokemonCategory;
 
 using std::cout;
 using std::cin;
@@ -15,25 +24,7 @@ using std::endl;
 
 int main() {
 
-    float PokemonHP;             // Percentage
-    int BallType;                // 1-9
-    int PokemonCategory;         // 1-9
-    int WeatherType;                 // (-1,0-9)
-    int PokemonType;                    // int
-    int Time;
-
-    cout << "Enter Pokemon HP in percentage : ";
-    cin >> PokemonHP;
-    cout << endl << "Enter BallType : ";
-    cin >> BallType;
-    cout << endl << "Enter Pokemon's catch weight category : ";
-    cin >> PokemonCategory;
-    cout << endl << "Enter Weather Condition (-1 for no weather) : ";
-    cin >> WeatherType;
-    cout << endl << "Enter Pokemon's type : ";
-    cin >> PokemonType;
-    cout << endl << "Enter Time : ";
-    cin >> Time;
+    void handle_input();
 
     float WeatherModifier = weather_modifier(WeatherType, PokemonType);
     float PokeballModifier = pokeball_modifiers(BallType, Time, PokemonType);
@@ -41,7 +32,7 @@ int main() {
     float BaseChance = catch_calculator(PokemonHP, PokemonCategory);
     float Chance = modifiers(WeatherModifier, PokeballModifier, BaseChance);
 
-    if (PokeballModifier == -1){
+    if (BallType == MASTER){
         Chance = 1;
     };
 
@@ -52,7 +43,7 @@ return 0; }
 
 float catch_calculator(float PokemonHP , int PokemonCategory) {
 
-    float chance = (100.0f - PokemonHP)* numTOpercentage(PokemonCategory, CategoryCount) / 10000;
+    float chance = (100.0f - PokemonHP)* numTOpercentage(PokemonCategory, CategoryCount) / 10000.0f;
     return chance;
 }
 
@@ -63,41 +54,63 @@ float modifiers(float WeatherModifier, float PokeballModifier, float BaseChance)
 
 float pokeball_modifiers(int balltype, int time, int PokemonType){
     switch(balltype){
-        case 0:
-            return 1;
-        case 1:
-            return 1.5;
-        case 2:
-            return 2;
-        case 9:
-            return -1;
+        case NORMAL:
+            return 1.0f;
+        case GREAT:
+            return 1.5f;
+        case ULTRA:
+            return 2.0f;
     };
 
-    if (balltype == 4 and time == 1) {     //night and dusk ball
-        return 3;
+    if (balltype == DUSK and time == NIGHT) {     //night and dusk ball
+        return 3.0f;
     };
 
-    if (balltype == 4 and (PokemonType == 3 or PokemonType == 4)){    //net ball and water/bug type
-        return 3;
+    if (balltype == NET and (PokemonType == WATER or PokemonType == BUG)){    //net ball and water/bug type
+        return 3.0f;
     };
-    return 1;
+    return 1.0f;
 }
 
 float weather_modifier(int WeatherType, int PokemonType) {
     // i.e. Evasion
     // From this logic Weather and pokemon type could be matched for example as (0,sandstorm,ground), (1, rain, water)
-    // Will update to taking a struct or an arr if the need be  - will have to change the input details in main/ fxn call
     
-    if (WeatherType == -1) {
-        return 1;
+    if (WeatherType == CLEAR) {
+        return 1.0f;
     };
     if (WeatherType == PokemonType) {
-        return 1.5;
+        return 1.5f;
     };
-    return 1;
+    return 1.0f;
 }
 
 float numTOpercentage(int number, int max) {
     float p = number*100.0f / max;
     return p;
+}
+
+void handle_input() {
+    int input;
+
+    cout << "Enter Pokemon HP in percentage : ";
+    cin >> PokemonHP;
+    cout << endl << "Enter Pokemon's catch weight category : ";
+    cin >> PokemonCategory;
+
+    cout << endl << "Enter BallType : ";
+    cin >> input;
+    BallType = static_cast<Pokeballs>(input);
+
+    cout << endl << "Enter Weather Condition (-1 for no weather) : ";
+    cin >> input;
+    WeatherType = static_cast<Weathers>(input);
+
+    cout << endl << "Enter Pokemon's type : ";
+    cin >> input;
+    PokemonType = static_cast<PokemonTypes>(input);
+
+    cout << endl << "Enter Time : ";
+    cin >> input;
+    Time = static_cast<TimeofDay>(input);
 }
