@@ -1,7 +1,4 @@
-1. Clean Up teh formula by seperating ball modifiers, normal = 1, great = 1.5, ultra = 2, master = lol using switch
-2. Make a struct for pokemon object and store data in it, Make a second struct for envirnoment object and store weather and time in it
-3. Find a way to get input in one or two lines (if sepearting pokemon struct and envirnoment struct), if possible.
-4. Implement using enums index to types
-5. CRITICAL : what if Pokemon Catagory/ Balltype (for now) is 0?!
-6. Clean Up variable names
-7. Remove semicolons after fxn's end's }
+1. Make a struct for pokemon object and store data in it, Make a second struct for envirnoment object and store weather and time in it
+2. Find a way to get input in one or two lines (if sepearting pokemon struct and envirnoment struct), if possible.
+3. Implement using enums for types, weather, pokeballs, time, catagory, etc
+4. Reject Invalid Input
