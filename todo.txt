@@ -1,4 +1,3 @@
 1. Make a struct for pokemon object and store data in it, Make a second struct for envirnoment object and store weather and time in it
 2. Find a way to get input in one or two lines (if sepearting pokemon struct and envirnoment struct), if possible.
-3. Implement using enums for types, weather, pokeballs, time, catagory, etc
-4. Reject Invalid Input
+3. Reject Invalid Input
