@@ -2,14 +2,6 @@
 
 const int CategoryCount = 10;
 
-float numTOpercentage(int , int);
-float catch_calculator(float, int);
-float modifiers(float, float, float);
-float weather_modifier(int, int);
-float pokeball_modifiers(int, int, int);
-void handle_input();
-
-
 enum PokemonTypes  {GROUND, WATER, FIRE, ICE, BUG} PokemonType;
 enum Weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR} WeatherType;
 enum Pokeballs {NORMAL, GREAT, ULTRA, DUSK, NET, MASTER} BallType;
@@ -22,9 +14,16 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+float numTOpercentage(int , int);
+float catch_calculator(float, int);
+float modifiers(float, float, float);
+float weather_modifier(Weathers, PokemonTypes);
+float pokeball_modifiers(Pokeballs, TimeofDay, PokemonTypes);
+void handle_input();
+
 int main() {
 
-    void handle_input();
+    handle_input();
 
     float WeatherModifier = weather_modifier(WeatherType, PokemonType);
     float PokeballModifier = pokeball_modifiers(BallType, Time, PokemonType);
@@ -52,7 +51,7 @@ float modifiers(float WeatherModifier, float PokeballModifier, float BaseChance)
     return BaseChance*WeatherModifier*PokeballModifier;
 }
 
-float pokeball_modifiers(int balltype, int time, int PokemonType){
+float pokeball_modifiers(Pokeballs balltype, TimeofDay time, PokemonTypes PokemonType){
     switch(balltype){
         case NORMAL:
             return 1.0f;
@@ -72,7 +71,7 @@ float pokeball_modifiers(int balltype, int time, int PokemonType){
     return 1.0f;
 }
 
-float weather_modifier(int WeatherType, int PokemonType) {
+float weather_modifier(Weathers WeatherType, PokemonTypes PokemonType) {
     // i.e. Evasion
     // From this logic Weather and pokemon type could be matched for example as (0,sandstorm,ground), (1, rain, water)
     
