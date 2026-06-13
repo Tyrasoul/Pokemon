@@ -1,4 +1,6 @@
+#include <ios>
 #include <iostream>
+#include <limits>
 
 const int CategoryCount = 10;
 
@@ -106,48 +108,54 @@ void handle_input() {
     int input;
 
     cout << "Enter Pokemon HP in percentage : ";
-    cin >> pokemon.HP;
-    while (pokemon.HP > 100 or pokemon.HP < 0) {
+    while (!(cin>>pokemon.HP) || pokemon.HP > 100 or pokemon.HP < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of Pokemon HP in percentage : ";
-        cin >> pokemon.HP;
     };
-    
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     cout << endl << "Enter Pokemon's catch-weight category : ";
-    cin >> pokemon.Category;
-    while (pokemon.Category > 9 or pokemon.Category < 1) {
+    while (!(cin>>pokemon.Category) || pokemon.Category > 9 or pokemon.Category < 1) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << endl << "Please enter a valid value of Pokemon's catch-weight category : ";
-        cin >> pokemon.Category;
     };
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << endl << "Enter BallType : ";
-    cin >> input;
-    while (input >= TOTALBALLS or input < 0) {
+    while (!(cin>>input) || input >= TOTALBALLS or input < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of BallType : ";
-        cin >> input;
     };
     BallType = static_cast<Pokeballs>(input);
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << endl << "Enter Weather Condition : ";
-    cin >> input;
-    while (input >= TOTALWEATHERS or input < 0) {
+    while (!(cin>>input) || input >= TOTALWEATHERS or input < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of Weather : ";
-        cin >> input;
     };
     env.Weather = static_cast<Weathers>(input);
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << endl << "Enter Pokemon's type : ";
-    cin >> input;
-    while (input >= TOTALTYPES or input < 0) {
+    while (!(cin>>input) || input >= TOTALTYPES or input < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of Pokemon HP in percentage : ";
-        cin >> input;
     };
     pokemon.Type = static_cast<PokemonTypes>(input);
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << endl << "Enter Time : ";
-    cin >> input;
-    while (input >= TOTALTIME or input < 0) {
+    while (!(cin>>input) || input >= TOTALTIME or input < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of Pokemon HP in percentage : ";
-        cin >> input;
     };
     env.Time = static_cast<TimeofDay>(input);
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
