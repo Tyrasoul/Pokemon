@@ -1,3 +1,5 @@
-1. Make a struct for pokemon object and store data in it, Make a second struct for envirnoment object and store weather and time in it
-2. Find a way to get input in one or two lines (if sepearting pokemon struct and envirnoment struct), if possible.
-3. Reject Invalid Input
+1. Find a way to get input in one or two lines (if sepearting pokemon struct and envirnoment struct), if possible.
+2. Handle Bad input stream states
+3. Remove global vars if you want
+4. Make a nice UI, in console only or otherwise
+5. Change weathertype == pokemontype - to robust code

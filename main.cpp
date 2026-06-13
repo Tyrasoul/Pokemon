@@ -2,13 +2,22 @@
 
 const int CategoryCount = 10;
 
-enum PokemonTypes  {GROUND, WATER, FIRE, ICE, BUG} PokemonType;
-enum Weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR} WeatherType;
-enum Pokeballs {NORMAL, GREAT, ULTRA, DUSK, NET, MASTER} BallType;
-enum TimeofDay {MORNING, NOON, AFTERNOON, EVENING, NIGHT} Time;
+enum PokemonTypes  {GROUND, WATER, FIRE, ICE, BUG, TOTALTYPES};
+enum Weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR, TOTALWEATHERS};
+enum Pokeballs {NORMAL, GREAT, ULTRA, DUSK, NET, MASTER, TOTALBALLS} BallType;
+enum TimeofDay {MORNING, NOON, AFTERNOON, EVENING, NIGHT, TOTALTIME};
 
-float PokemonHP;
-int PokemonCategory;
+
+struct Pokemon {
+    PokemonTypes Type;
+    float HP;
+    int Category;
+} pokemon;
+
+struct environment {
+    Weathers Weather;
+    TimeofDay Time;
+} env;
 
 using std::cout;
 using std::cin;
@@ -25,14 +34,18 @@ int main() {
 
     handle_input();
 
-    float WeatherModifier = weather_modifier(WeatherType, PokemonType);
-    float PokeballModifier = pokeball_modifiers(BallType, Time, PokemonType);
+    float WeatherModifier = weather_modifier(env.Weather, pokemon.Type);
+    float PokeballModifier = pokeball_modifiers(BallType, env.Time, pokemon.Type);
 
-    float BaseChance = catch_calculator(PokemonHP, PokemonCategory);
+    float BaseChance = catch_calculator(pokemon.HP, pokemon.Category);
     float Chance = modifiers(WeatherModifier, PokeballModifier, BaseChance);
 
     if (BallType == MASTER){
-        Chance = 1;
+        Chance = 1.0f;
+    };
+
+    if (Chance > 1.0f) {
+        Chance = 1.0f;
     };
 
     cout << endl << "You have a " << 100.0f * Chance << " % chance of catching the pokemon";
@@ -93,23 +106,48 @@ void handle_input() {
     int input;
 
     cout << "Enter Pokemon HP in percentage : ";
-    cin >> PokemonHP;
-    cout << endl << "Enter Pokemon's catch weight category : ";
-    cin >> PokemonCategory;
+    cin >> pokemon.HP;
+    while (pokemon.HP > 100 or pokemon.HP < 0) {
+        cout << "Please enter a valid value of Pokemon HP in percentage : ";
+        cin >> pokemon.HP;
+    };
+    
+    cout << endl << "Enter Pokemon's catch-weight category : ";
+    cin >> pokemon.Category;
+    while (pokemon.Category > 9 or pokemon.Category < 1) {
+        cout << endl << "Please enter a valid value of Pokemon's catch-weight category : ";
+        cin >> pokemon.Category;
+    };
 
     cout << endl << "Enter BallType : ";
     cin >> input;
+    while (input >= TOTALBALLS or input < 0) {
+        cout << "Please enter a valid value of BallType : ";
+        cin >> input;
+    };
     BallType = static_cast<Pokeballs>(input);
 
-    cout << endl << "Enter Weather Condition (-1 for no weather) : ";
+    cout << endl << "Enter Weather Condition : ";
     cin >> input;
-    WeatherType = static_cast<Weathers>(input);
+    while (input >= TOTALWEATHERS or input < 0) {
+        cout << "Please enter a valid value of Weather : ";
+        cin >> input;
+    };
+    env.Weather = static_cast<Weathers>(input);
 
     cout << endl << "Enter Pokemon's type : ";
     cin >> input;
-    PokemonType = static_cast<PokemonTypes>(input);
+    while (input >= TOTALTYPES or input < 0) {
+        cout << "Please enter a valid value of Pokemon HP in percentage : ";
+        cin >> input;
+    };
+    pokemon.Type = static_cast<PokemonTypes>(input);
 
     cout << endl << "Enter Time : ";
     cin >> input;
-    Time = static_cast<TimeofDay>(input);
+    while (input >= TOTALTIME or input < 0) {
+        cout << "Please enter a valid value of Pokemon HP in percentage : ";
+        cin >> input;
+    };
+    env.Time = static_cast<TimeofDay>(input);
 }
