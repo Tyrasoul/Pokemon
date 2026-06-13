@@ -88,13 +88,26 @@ float pokeball_modifiers(Pokeballs balltype, TimeofDay time, PokemonTypes Pokemo
 
 float weather_modifier(Weathers WeatherType, PokemonTypes PokemonType) {
     // i.e. Evasion
-    // From this logic Weather and pokemon type could be matched for example as (0,sandstorm,ground), (1, rain, water)
-    
-    if (WeatherType == CLEAR) {
-        return 1.0f;
-    };
-    if (WeatherType == PokemonType) {
-        return 1.5f;
+
+    switch (WeatherType) {
+        case CLEAR:
+            return 1.0f;
+        case SANDSTORM:
+            if (PokemonType == GROUND){
+                return 1.5f;
+            };
+        case RAIN:
+            if (PokemonType == WATER){
+                return 1.5f;
+            };
+        case HARSHSUN:
+            if (PokemonType == FIRE){
+                return 1.5f;
+            };
+        case SNOW:
+            if (PokemonType == ICE){
+                return 1.5f;
+            };
     };
     return 1.0f;
 }
