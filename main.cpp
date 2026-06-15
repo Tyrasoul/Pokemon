@@ -6,7 +6,7 @@ const int CategoryCount = 10;
 
 enum pokemontypes  {GROUND, WATER, FIRE, ICE, BUG, TOTALTYPES};
 enum weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR, TOTALWEATHERS};
-enum pokeballs {NORMAL, GREAT, PREMIER, ULTRA, DUSK, NET, DIVE, MASTER, TOTALBALLS} BallType;
+enum pokeballs {NORMAL, GREAT, PREMIER, ULTRA, DUSK, NET, DIVE, MASTER, TOTALBALLS};
 enum timeofday {MORNING, NOON, AFTERNOON, EVENING, NIGHT, TOTALTIME};
 enum terrain {UNDERWATER, CAVE, TOTALTERRAIN};
 
@@ -15,13 +15,13 @@ struct Pokemon {
     pokemontypes Type;
     float HP;
     int Category;
-} pokemon;
+};
 
-struct environment {
+struct Environment {
     weathers Weather;
     timeofday Time;
     terrain Terrain;
-} env;
+};
 
 using std::cout;
 using std::cin;
@@ -31,15 +31,18 @@ float numTOpercentage(int , int);
 float catch_calculator(float, int);
 float modifiers(float, float, float);
 float weather_modifier(weathers, pokemontypes);
-float pokeball_modifiers(pokeballs, timeofday, pokemontypes);
-void handle_input();
+float pokeball_modifiers(pokeballs, timeofday, pokemontypes, terrain);
+void handle_input(pokeballs&, Pokemon&, Environment&);
 
 int main() {
+    Pokemon pokemon;
+    Environment env;
+    pokeballs BallType;
 
-    handle_input();
+    handle_input(BallType, pokemon, env);
 
     float WeatherModifier = weather_modifier(env.Weather, pokemon.Type);
-    float PokeballModifier = pokeball_modifiers(BallType, env.Time, pokemon.Type);
+    float PokeballModifier = pokeball_modifiers(BallType, env.Time, pokemon.Type, env.Terrain);
 
     float BaseChance = catch_calculator(pokemon.HP, pokemon.Category);
     float Chance = modifiers(WeatherModifier, PokeballModifier, BaseChance);
@@ -68,7 +71,7 @@ float modifiers(float WeatherModifier, float PokeballModifier, float BaseChance)
     return BaseChance*WeatherModifier*PokeballModifier;
 }
 
-float pokeball_modifiers(pokeballs balltype, timeofday time, pokemontypes PokemonType){
+float pokeball_modifiers(pokeballs balltype, timeofday Time, pokemontypes PokemonType, terrain Terrain ){
     switch(balltype){
         case NORMAL:
             return 1.0f;
@@ -79,7 +82,7 @@ float pokeball_modifiers(pokeballs balltype, timeofday time, pokemontypes Pokemo
         case ULTRA:
             return 2.0f;
         case DUSK:
-            if (time == NIGHT || env.Terrain == CAVE){
+            if (Time == NIGHT || Terrain == CAVE){
                 return 3.5f;
             };
         case NET:
@@ -87,7 +90,7 @@ float pokeball_modifiers(pokeballs balltype, timeofday time, pokemontypes Pokemo
                 return 3.5f;
             };
         case DIVE:
-            if (env.Terrain == UNDERWATER){
+            if (Terrain == UNDERWATER){
                 return 3.5f;
             }
         case MASTER:
@@ -127,7 +130,7 @@ float numTOpercentage(int number, int max) {
     return p;
 }
 
-void handle_input() {
+void handle_input(pokeballs& BallType, Pokemon& pokemon, Environment& env) {
     int input;
 
     cout << "Enter Pokemon HP in percentage : ";

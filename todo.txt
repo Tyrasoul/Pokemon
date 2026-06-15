@@ -1,6 +1,3 @@
-1. Make the 6 inputs follow a single fxn
-2. Remove global vars if you want
-3. Make a nice UI, in console only or otherwise
-4. Decide whether to make all the variables global ie removing some fxns' need to to take them as args
-   or make all of them local except teh absolute necessary ones and fxns take eveyrthing in args.
-
+1. Add more ball conditions form later gens, invent some of your own which you think should happen
+3. implement Catch catagories in the right way
+2. Make a nice UI, in console only or otherwise
