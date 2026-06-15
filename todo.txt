@@ -1,3 +1,4 @@
 1. Make the 6 inputs follow a single fxn
 2. Remove global vars if you want
 3. Make a nice UI, in console only or otherwise
+4. Make all enums follwo lowercase and Vars follow snakecase

@@ -6,8 +6,9 @@ const int CategoryCount = 10;
 
 enum PokemonTypes  {GROUND, WATER, FIRE, ICE, BUG, TOTALTYPES};
 enum Weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR, TOTALWEATHERS};
-enum Pokeballs {NORMAL, GREAT, ULTRA, DUSK, NET, MASTER, TOTALBALLS} BallType;
+enum Pokeballs {NORMAL, GREAT, PREMIER, ULTRA, DUSK, NET, DIVE, MASTER, TOTALBALLS} BallType;
 enum TimeofDay {MORNING, NOON, AFTERNOON, EVENING, NIGHT, TOTALTIME};
+enum terrain {UNDERWATER, CAVE, TOTALTERRAIN};
 
 
 struct Pokemon {
@@ -19,6 +20,7 @@ struct Pokemon {
 struct environment {
     Weathers Weather;
     TimeofDay Time;
+    terrain Terrain;
 } env;
 
 using std::cout;
@@ -72,16 +74,24 @@ float pokeball_modifiers(Pokeballs balltype, TimeofDay time, PokemonTypes Pokemo
             return 1.0f;
         case GREAT:
             return 1.5f;
+        case PREMIER:
+            return 1.5f;
         case ULTRA:
             return 2.0f;
-    };
-
-    if (balltype == DUSK and time == NIGHT) {     //night and dusk ball
-        return 3.0f;
-    };
-
-    if (balltype == NET and (PokemonType == WATER or PokemonType == BUG)){    //net ball and water/bug type
-        return 3.0f;
+        case DUSK:
+            if (time == NIGHT || env.Terrain == CAVE){
+                return 3.5f;
+            };
+        case NET:
+            if (PokemonType == WATER || PokemonType == BUG){
+                return 3.5f;
+            };
+        case DIVE:
+            if (env.Terrain == UNDERWATER){
+                return 3.5f;
+            }
+        case MASTER:
+            return 1.0f;   //Don't worry - it is handled in main ;)
     };
     return 1.0f;
 }
@@ -158,7 +168,7 @@ void handle_input() {
     while (!(cin>>input) || input >= TOTALTYPES or input < 0) {
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        cout << "Please enter a valid value of Pokemon HP in percentage : ";
+        cout << "Please enter a valid value of Pokemon Type : ";
     };
     pokemon.Type = static_cast<PokemonTypes>(input);
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -167,8 +177,17 @@ void handle_input() {
     while (!(cin>>input) || input >= TOTALTIME or input < 0) {
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        cout << "Please enter a valid value of Pokemon HP in percentage : ";
+        cout << "Please enter a valid value of Time : ";
     };
     env.Time = static_cast<TimeofDay>(input);
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    cout << endl << "Enter Terrain : ";
+    while (!(cin>>input) || input >= TOTALTERRAIN or input < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Please enter a valid value of Terrain : ";
+    };
+    env.Terrain = static_cast<terrain>(input);
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
