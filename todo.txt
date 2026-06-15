@@ -1,4 +1,6 @@
 1. Make the 6 inputs follow a single fxn
 2. Remove global vars if you want
 3. Make a nice UI, in console only or otherwise
-4. Make all enums follwo lowercase and Vars follow snakecase
+4. Decide whether to make all the variables global ie removing some fxns' need to to take them as args
+   or make all of them local except teh absolute necessary ones and fxns take eveyrthing in args.
+

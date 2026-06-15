@@ -4,22 +4,22 @@
 
 const int CategoryCount = 10;
 
-enum PokemonTypes  {GROUND, WATER, FIRE, ICE, BUG, TOTALTYPES};
-enum Weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR, TOTALWEATHERS};
-enum Pokeballs {NORMAL, GREAT, PREMIER, ULTRA, DUSK, NET, DIVE, MASTER, TOTALBALLS} BallType;
-enum TimeofDay {MORNING, NOON, AFTERNOON, EVENING, NIGHT, TOTALTIME};
+enum pokemontypes  {GROUND, WATER, FIRE, ICE, BUG, TOTALTYPES};
+enum weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR, TOTALWEATHERS};
+enum pokeballs {NORMAL, GREAT, PREMIER, ULTRA, DUSK, NET, DIVE, MASTER, TOTALBALLS} BallType;
+enum timeofday {MORNING, NOON, AFTERNOON, EVENING, NIGHT, TOTALTIME};
 enum terrain {UNDERWATER, CAVE, TOTALTERRAIN};
 
 
 struct Pokemon {
-    PokemonTypes Type;
+    pokemontypes Type;
     float HP;
     int Category;
 } pokemon;
 
 struct environment {
-    Weathers Weather;
-    TimeofDay Time;
+    weathers Weather;
+    timeofday Time;
     terrain Terrain;
 } env;
 
@@ -30,8 +30,8 @@ using std::endl;
 float numTOpercentage(int , int);
 float catch_calculator(float, int);
 float modifiers(float, float, float);
-float weather_modifier(Weathers, PokemonTypes);
-float pokeball_modifiers(Pokeballs, TimeofDay, PokemonTypes);
+float weather_modifier(weathers, pokemontypes);
+float pokeball_modifiers(pokeballs, timeofday, pokemontypes);
 void handle_input();
 
 int main() {
@@ -68,7 +68,7 @@ float modifiers(float WeatherModifier, float PokeballModifier, float BaseChance)
     return BaseChance*WeatherModifier*PokeballModifier;
 }
 
-float pokeball_modifiers(Pokeballs balltype, TimeofDay time, PokemonTypes PokemonType){
+float pokeball_modifiers(pokeballs balltype, timeofday time, pokemontypes PokemonType){
     switch(balltype){
         case NORMAL:
             return 1.0f;
@@ -96,7 +96,7 @@ float pokeball_modifiers(Pokeballs balltype, TimeofDay time, PokemonTypes Pokemo
     return 1.0f;
 }
 
-float weather_modifier(Weathers WeatherType, PokemonTypes PokemonType) {
+float weather_modifier(weathers WeatherType, pokemontypes PokemonType) {
     // i.e. Evasion
 
     switch (WeatherType) {
@@ -152,7 +152,7 @@ void handle_input() {
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of BallType : ";
     };
-    BallType = static_cast<Pokeballs>(input);
+    BallType = static_cast<pokeballs>(input);
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << endl << "Enter Weather Condition : ";
@@ -161,7 +161,7 @@ void handle_input() {
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of Weather : ";
     };
-    env.Weather = static_cast<Weathers>(input);
+    env.Weather = static_cast<weathers>(input);
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << endl << "Enter Pokemon's type : ";
@@ -170,7 +170,7 @@ void handle_input() {
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of Pokemon Type : ";
     };
-    pokemon.Type = static_cast<PokemonTypes>(input);
+    pokemon.Type = static_cast<pokemontypes>(input);
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << endl << "Enter Time : ";
@@ -179,7 +179,7 @@ void handle_input() {
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Please enter a valid value of Time : ";
     };
-    env.Time = static_cast<TimeofDay>(input);
+    env.Time = static_cast<timeofday>(input);
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << endl << "Enter Terrain : ";
