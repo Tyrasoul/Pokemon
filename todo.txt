@@ -1,5 +1,5 @@
 1. Add more ball conditions form later gens, invent some of your own which you think should happen
-3. implement Catch catagories in the right way
 2. Make a nice UI, in console only or otherwise
-5. Either Display what numbers mean which user enters or make a way that user enter directly data in english.
+3. Implement stauses (freeze,sleep,etc)
+4. Either Display what numbers mean which user enters or make a way that user enter directly data in english.
    If done after UI then make a button-based-selection/dropdown for the input.

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <limits>
 
-const int CategoryCount = 10;
+const float MAX_CATCHRATE = 255.0f;
 
 enum pokemontypes  {GROUND, WATER, FIRE, ICE, BUG, TOTALTYPES};
 enum weathers {SANDSTORM, RAIN, HARSHSUN, SNOW, CLEAR, TOTALWEATHERS};
@@ -14,7 +14,7 @@ enum terrain {UNDERWATER, CAVE, TOTALTERRAIN};
 struct Pokemon {
     pokemontypes Type;
     float HP;
-    int Category;
+    int CatchRate;
 };
 
 struct Environment {
@@ -27,7 +27,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-float numTOpercentage(int , int);
 float catch_calculator(float, int);
 float modifiers(float, float, float);
 float weather_modifier(weathers, pokemontypes);
@@ -44,7 +43,7 @@ int main() {
     float WeatherModifier = weather_modifier(env.Weather, pokemon.Type);
     float PokeballModifier = pokeball_modifiers(BallType, env.Time, pokemon.Type, env.Terrain);
 
-    float BaseChance = catch_calculator(pokemon.HP, pokemon.Category);
+    float BaseChance = catch_calculator(pokemon.HP, pokemon.CatchRate);
     float Chance = modifiers(WeatherModifier, PokeballModifier, BaseChance);
 
     if (BallType == MASTER){
@@ -55,14 +54,14 @@ int main() {
         Chance = 1.0f;
     };
 
-    cout << endl << "You have a " << 100.0f * Chance << " % chance of catching the pokemon";
+    cout << endl << "You have a " << 100.0f*Chance << " % chance of catching the pokemon";
     
 
 return 0; }
 
-float catch_calculator(float PokemonHP , int PokemonCategory) {
+float catch_calculator(float PokemonHP, int CatchRate) {
 
-    float chance = (100.0f - PokemonHP)* numTOpercentage(PokemonCategory, CategoryCount) / 10000.0f;
+    float chance = ((100.0f - PokemonHP)/100.0f)*(CatchRate/MAX_CATCHRATE);
     return chance;
 }
 
@@ -125,11 +124,6 @@ float weather_modifier(weathers WeatherType, pokemontypes PokemonType) {
     return 1.0f;
 }
 
-float numTOpercentage(int number, int max) {
-    float p = number*100.0f / max;
-    return p;
-}
-
 void handle_input(pokeballs& BallType, Pokemon& pokemon, Environment& env) {
     int input;
 
@@ -141,11 +135,11 @@ void handle_input(pokeballs& BallType, Pokemon& pokemon, Environment& env) {
     };
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    cout << endl << "Enter Pokemon's catch-weight category : ";
-    while (!(cin>>pokemon.Category) || pokemon.Category > 9 or pokemon.Category < 1) {
+    cout << endl << "Enter Pokemon's Catch Rate : ";
+    while (!(cin>>pokemon.CatchRate) || pokemon.CatchRate > 255 or pokemon.CatchRate < 1) {
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        cout << endl << "Please enter a valid value of Pokemon's catch-weight category : ";
+        cout << endl << "Please enter a valid value of Pokemon's Catch Rate (1-255): ";
     };
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
